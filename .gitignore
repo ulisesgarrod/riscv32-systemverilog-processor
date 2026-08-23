@@ -1,0 +1,31 @@
+# Quartus generated files
+db/
+incremental_db/
+output_files/
+greybox_tmp/
+.qsys_edit/
+
+*.rpt
+*.summary
+*.smsg
+*.done
+*.jdi
+*.pin
+*.sof
+*.pof
+
+# QuestaSim / ModelSim generated files
+work/
+transcript
+vsim.wlf
+*.wlf
+modelsim.ini
+
+# Editors / OS
+.vscode/
+.idea/
+*.bak
+*.tmp
+*~
+Thumbs.db
+.DS_Store

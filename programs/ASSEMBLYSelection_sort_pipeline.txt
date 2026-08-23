@@ -1,0 +1,159 @@
+# Selection sort for the pipelined processor
+
+auipc x9, 65536
+nop
+nop
+nop
+
+lw x9, 0(x9)
+nop
+nop
+nop
+
+addi x10, x0, 0     # i = 0
+nop
+nop
+nop
+
+addi x11, x9, -1    # n - 1
+nop
+nop
+nop
+
+addi x12, x0, 0     # Minimum value
+nop
+nop
+nop
+
+addi x13, x0, 0     # j = 0
+nop
+nop
+nop
+
+addi x14, x0, 0     # Pointer to minimum
+nop
+nop
+nop
+
+addi x15, x0, 0     # Value at j pointer
+nop
+nop
+nop
+
+# Address of list. Explicit expansion of the original 'la x16, list'
+# with bubbles between AUIPC and ADDI.
+auipc x16, 65536
+nop
+nop
+nop
+addi x16, x16, -124
+nop
+nop
+nop
+
+addi x17, x16, 0    # j pointer
+nop
+nop
+nop
+
+addi x18, x0, 0     # Temporary value used during swap
+nop
+nop
+nop
+
+LOOP:
+addi x14, x16, 0
+nop
+nop
+nop
+
+lw x12, 0(x16)
+nop
+nop
+nop
+
+LOOP2:
+lw x15, 0(x17)
+nop
+nop
+nop
+
+bge x15, x12, NO_CHANGE
+nop
+nop
+nop
+
+add x14, x0, x17
+nop
+nop
+nop
+
+add x12, x0, x15
+nop
+nop
+nop
+
+NO_CHANGE:
+addi x13, x13, 1    # j = j + 1
+nop
+nop
+nop
+
+addi x17, x17, 4    # Advance j pointer
+nop
+nop
+nop
+
+bne x13, x9, LOOP2
+nop
+nop
+nop
+
+lw x18, 0(x16)      # Save current i value
+nop
+nop
+nop
+
+sw x12, 0(x16)      # Store minimum at i
+nop
+nop
+nop
+
+sw x18, 0(x14)      # Store old i value at minimum position
+nop
+nop
+nop
+
+addi x8, x8, 4
+nop
+nop
+nop
+
+addi x10, x10, 1    # i = i + 1
+nop
+nop
+nop
+
+addi x16, x16, 4    # Advance i pointer
+nop
+nop
+nop
+
+addi x13, x10, 0    # j = i
+nop
+nop
+nop
+
+addi x17, x16, 0    # j pointer = i pointer
+nop
+nop
+nop
+
+bne x10, x11, LOOP
+nop
+nop
+nop
+
+.data
+N: .word 10
+list: .word 4, -8, 8, -6, 7, 12, -15, -12, 12, -9

@@ -1,0 +1,88 @@
+auipc x3, 65536
+
+lw x8, 0(x3)
+lui x9, 10
+
+add x8, x8, x9
+sub x8, x8, x9
+addi x8, x8, 25
+addi x8, x8, -25
+
+slli x8, x8, 4
+srli x8, x8, 4
+addi x10, x0, 8
+sll x8, x8, x10
+srl x8, x8, x10
+
+srli x11, x9, 12
+sra x12, x9, x10
+srai x12, x12, 4
+bne x12, x8, WRONG
+bne x11, x8, WRONG
+sw x11, 4(x3)
+
+
+# Second part
+addi x13, x0, 12
+addi x14, x0, 25
+xor x15, x13, x14
+and x16, x15, x13
+or x17, x16, x15
+beq x15, x15, OK
+beq x0, x0, WRONG
+
+
+OK:
+xori x15, x13, 8
+ori x16, x15, 8
+andi x17, x16, 10
+addi x18, x0, 8
+beq x17, x18, OK2
+beq x0, x0, WRONG
+
+
+OK2:
+# Third part
+addi x13, x0, 2
+addi x14, x0, -16
+slt x15, x14, x13
+slti x16, x14, -15
+add x17, x15, x16
+sltu x15, x14, x13
+sltiu x16, x14, 12
+add x18, x15, x16
+bge x18, x17, WRONG
+sw x17, 8(x3)
+
+# Test BLT, BLTU, BGEU, JAL and JALR
+addi x19, x0, -1
+addi x20, x0, 1
+
+blt x19, x20, BLT_OK
+beq x0, x0, WRONG
+
+BLT_OK:
+bltu x20, x19, BLTU_OK
+beq x0, x0, WRONG
+
+BLTU_OK:
+bgeu x19, x20, BGEU_OK
+beq x0, x0, WRONG
+
+BGEU_OK:
+jal x21, JAL_OK
+beq x0, x0, WRONG
+
+JAL_OK:
+addi x21, x21, 16
+jalr x22, 0(x21)
+beq x0, x0, WRONG
+
+JALR_OK:
+addi x23, x0, 1
+sw x23, 12(x3)
+
+WRONG:
+
+.data
+.word 10

@@ -1,0 +1,56 @@
+la x9, N
+lw x9, 0(x9)
+
+addi x10, x0, 0     # i = 0
+addi x11, x9, -1    # n - 1
+addi x12, x0, 0     # Minimum value
+addi x13, x0, 0     # j = 0
+addi x14, x0, 0     # Pointer to minimum
+addi x15, x0, 0     # Value at j pointer
+
+la x16, list        # Pointer to list[i]
+addi x17, x16, 0    # Pointer to list[j]
+addi x18, x0, 0     # Temporary value used during swap
+
+
+LOOP:
+addi x14, x16, 0
+lw x12, 0(x16)
+
+
+LOOP2:
+lw x15, 0(x17)              # Load list[j] for comparison
+bge x15, x12, NO_CHANGE     # Keep current minimum if list[j] >= minimum
+
+add x14, x0, x17            # Save pointer to new minimum
+add x12, x0, x15            # Save new minimum value
+
+
+NO_CHANGE:
+addi x13, x13, 1            # j = j + 1
+addi x17, x17, 4            # Advance j pointer
+
+bne x13, x9, LOOP2          # Continue until j reaches n
+
+
+lw x18, 0(x16)              # Save current list[i] value
+sw x12, 0(x16)              # Store minimum value at list[i]
+sw x18, 0(x14)              # Store old list[i] at minimum position
+
+addi x8, x8, 4              # Advance pointer by 4
+
+addi x10, x10, 1            # i = i + 1
+addi x16, x16, 4            # Advance i pointer
+addi x13, x10, 0            # j = i
+addi x17, x16, 0            # j pointer = i pointer
+
+bne x10, x11, LOOP          # Continue until i reaches n - 1
+
+
+.data
+
+N:
+.word 10
+
+list:
+.word 4, -8, 8, -6, 7, 12, -15, -12, 12, -9

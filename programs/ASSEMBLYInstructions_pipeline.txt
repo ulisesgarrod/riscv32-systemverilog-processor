@@ -1,0 +1,241 @@
+auipc x3, 65536
+nop
+nop
+nop
+
+lw x8, 0(x3)
+lui x9, 10
+nop
+nop
+nop
+
+add x8, x8, x9
+nop
+nop
+nop
+
+sub x8, x8, x9
+nop
+nop
+nop
+
+addi x8, x8, 25
+nop
+nop
+nop
+
+addi x8, x8, -25
+nop
+nop
+nop
+
+slli x8, x8, 4
+nop
+nop
+nop
+
+srli x8, x8, 4
+
+addi x10, x0, 8
+nop
+nop
+nop
+
+sll x8, x8, x10
+nop
+nop
+nop
+
+srl x8, x8, x10
+
+srli x11, x9, 12
+sra x12, x9, x10
+nop
+nop
+nop
+
+srai x12, x12, 4
+nop
+nop
+nop
+
+bne x12, x8, END
+nop
+nop
+nop
+
+bne x11, x8, END
+nop
+nop
+nop
+
+sw x11, 4(x3)
+
+# Logical operations
+addi x13, x0, 12
+addi x14, x0, 25
+nop
+nop
+nop
+
+xor x15, x13, x14
+nop
+nop
+nop
+
+and x16, x15, x13
+nop
+nop
+nop
+
+or x17, x16, x15
+
+beq x15, x15, PASS_1
+nop
+nop
+nop
+
+beq x0, x0, END
+nop
+nop
+nop
+
+PASS_1:
+xori x15, x13, 8
+nop
+nop
+nop
+
+ori x16, x15, 8
+nop
+nop
+nop
+
+andi x17, x16, 10
+addi x18, x0, 8
+nop
+nop
+nop
+
+beq x17, x18, PASS_2
+nop
+nop
+nop
+
+beq x0, x0, END
+nop
+nop
+nop
+
+PASS_2:
+# Comparison operations
+addi x13, x0, 2
+addi x14, x0, -16
+nop
+nop
+nop
+
+slt x15, x14, x13
+slti x16, x14, -15
+nop
+nop
+nop
+
+add x17, x15, x16
+
+sltu x15, x14, x13
+sltiu x16, x14, 12
+nop
+nop
+nop
+
+add x18, x15, x16
+nop
+nop
+nop
+
+bge x18, x17, END
+nop
+nop
+nop
+
+sw x17, 8(x3)
+
+# Branch and jump operations
+addi x8, x0, 25
+addi x9, x0, 12
+addi x10, x0, -30
+addi x11, x0, -14
+
+nop
+nop
+nop
+
+jal x1, PRODUCT
+nop
+nop
+nop
+
+sw x12, 0(x3)
+
+beq x0, x0, END
+nop
+nop
+nop
+
+PRODUCT:
+blt x9, x10, END
+nop
+nop
+nop
+
+blt x8, x9, END
+nop
+nop
+nop
+
+blt x8, x10, END
+nop
+nop
+nop
+
+bltu x10, x8, END
+nop
+nop
+nop
+
+bltu x11, x9, END
+nop
+nop
+nop
+
+bgeu x8, x10, END
+nop
+nop
+nop
+
+bgeu x9, x11, END
+nop
+nop
+nop
+
+add x12, x8, x10
+nop
+nop
+nop
+
+bltu x12, x10, END
+nop
+nop
+nop
+
+jalr x0, 0(x1)
+nop
+nop
+nop
+
+END:
+sw x12, 4(x3)
+
+.data
+.word 10
