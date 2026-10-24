@@ -1,5 +1,5 @@
 # 32-bit RISC-V Processor in SystemVerilog
-[![status: complete](https://www.repostatus.org/badges/latest/complete.svg)](https://www.repostatus.org/#complete)
+[![Status](https://img.shields.io/badge/status-Finished-2ea44f?style=for-the-badge)]()   
 
 A 32-bit RISC-V educational processor implemented in SystemVerilog and developed incrementally from a single-cycle core to a five-stage pipelined architecture.
 
